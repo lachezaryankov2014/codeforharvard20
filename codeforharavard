@@ -1,0 +1,29 @@
+#include <DHT.h>
+
+#define DHTPIN 2 // DHT11 data pin
+#define DHTTYPE DHT11 // DHT 11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+const int rainPin = A0; // Rain Water Level Sensor connected to A0
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  // Reading temperature and humidity
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
+  // Reading the rain sensor
+  int rainValue = analogRead(rainPin);
+  // Print the results to the Serial Monitor
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.print(" °C, Humidity: ");
+  Serial.print(humidity);
+  Serial.print("%, Rain level: ");
+  Serial.println(rainValue);
+  delay(2000); // Delay between readings
+}
